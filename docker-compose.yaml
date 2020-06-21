@@ -1,0 +1,22 @@
+version: '3.6'
+services:
+  server:
+    build:
+      context: ./api/
+    command: npm start
+    volumes:
+      - ./api/:/usr/app
+      - /usr/app/node_modules
+    ports:
+      - "808:8080"
+  client:
+    build:
+      context: ./client/
+    command: npm start
+    volumes:
+      - ./client/:/usr/app
+      - /usr/app/node_modules
+    depends_on:
+      - server
+    ports:
+      - "3001:3000"
